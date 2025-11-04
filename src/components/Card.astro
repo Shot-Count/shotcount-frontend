@@ -8,7 +8,7 @@ const { type } = Astro.props;
 
 {
   type === "shots" ? (
-    <article class="card-shadow font-open text-neutral bg-white rotate-[13.71deg] top-[30%] md:top-1/2 mt-20 absolute w-48 md:w-60 left-0 md:left-20  pl-0 pb-2  rounded-lg flex flex-col gap-3">
+    <article class="card-shadow shots-card font-open text-neutral bg-white rotate-[13.71deg] top-[30%] md:top-1/2 mt-20 absolute w-48 md:w-60 left-0 md:left-20  pl-0 pb-2  rounded-lg flex flex-col gap-3">
       <div class="relative col-center w-full text-center pt-2">
         <img
           loading="eager"
@@ -18,11 +18,16 @@ const { type } = Astro.props;
           alt=""
         />
         <p class=" text-base md:text-lg ml-3">Shots Taken</p>
-        <p class="text-[#2C333A] ml-3 font-cunia text-2xl md:text-[40px] font-bold counter" data-target="20000">0</p>
+        <p
+          class="text-[#2C333A] ml-3 font-cunia text-2xl md:text-[40px] font-bold counter"
+          data-target="20000"
+        >
+          0
+        </p>
       </div>
     </article>
   ) : (
-    <article class="w-60 md:w-83 h-42 bg-white rounded-lg -rotate-[12.96deg] top-[40%] md:top-1/2 right-0 mt-20 md:right-20 absolute card-shadow p-4 flex flex-col items-center justify-between">
+    <article class="w-60 microsoft-card md:w-83 h-42 bg-white rounded-lg -rotate-[12.96deg] top-[40%] md:top-1/2 right-0 mt-20 md:right-20 absolute card-shadow p-4 flex flex-col items-center justify-between">
       <img
         loading="eager"
         class="max-w-28 md:max-w-32"
@@ -47,5 +52,12 @@ const { type } = Astro.props;
 }
 
 <script>
-import("../scripts/counter.js").then(({ setupCounter }) => setupCounter());
+  window.addEventListener("DOMContentLoaded", async () => {
+    const { setupCounter, animateCards } = await import(
+      "../scripts/counter.js"
+    );
+
+    setupCounter();
+    animateCards();
+  });
 </script>
