@@ -1,0 +1,51 @@
+---
+interface Props {
+  type: "shots" | "microsoft";
+}
+
+const { type } = Astro.props;
+---
+
+{
+  type === "shots" ? (
+    <article class="card-shadow font-open text-neutral bg-white rotate-[13.71deg] top-1/2 mt-20 absolute w-60 left-20  pl-0  rounded-lg flex flex-col gap-3">
+      <div class="relative col-center w-full text-center pt-2">
+        <img
+          loading="lazy"
+          src="/icons/asterik.svg"
+          class="absolute left-1 top-2"
+          aria-hidden="true"
+          alt=""
+        />
+        <p class="text-lg ml-3">Shots Taken</p>
+        <p class="text-[#2C333A] ml-3 font-cunia text-[40px] font-bold counter" data-target="20000">0</p>
+      </div>
+    </article>
+  ) : (
+    <article class="w-83 h-42 bg-white rounded-lg -rotate-[12.96deg] top-1/2 mt-20 right-20 absolute card-shadow p-4 flex flex-col items-center justify-between">
+      <img
+        loading="lazy"
+        class="max-w-32"
+        src="/icons/microsoft.png"
+        aria-hidden="true"
+        alt=""
+      />
+      <div class="w-full flex gap-2">
+        <span class="flex-center size-10 bg-secondary uppercase shrink-0 text-white font-bold text-base rounded-full">
+          DN
+        </span>
+        <div class="flex w-full flex-col gap-2">
+          <span class="w-[70%] p-2 bg-offWhite animate-pulse rounded-full" />
+          <span class="w-full p-2 bg-offWhite animate-pulse rounded-full" />
+        </div>
+      </div>
+      <span class="bg-primary self-end text-xs text-black gap-1 flex-center text-center p-2 rounded-lg px-4">
+        Send Message
+      </span>
+    </article>
+  )
+}
+
+<script>
+import("../scripts/counter.js").then(({ setupCounter }) => setupCounter());
+</script>

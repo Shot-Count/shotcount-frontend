@@ -1,0 +1,23 @@
+<section class="w-full flex md:items-center px-4 items-start md:flex-row flex-col mb-30 scroll-mt-20  min-h-[60vh] justify-between" id="philosophy">
+<article class="flex flex-col gap-8 md:w-[50%]">
+
+    <h1 class="text-left font-cunia uppercase text-foreground text-4xl md:text-7xl">
+  Founding Philosophy.
+    </h1>
+    <p>Every mantra you’ve been taught about success is wrong. We can now tell, with statistical precision, those who will go on to make it—or miss—in life. Luck plays a role. But luck itself is a function of attempt rate. All of success is statistical.The more INTELLIGENTLY you fail, the faster you learn.</p>
+
+    <p class="font-bold font-cunia text-[#738496] max-w-[80%]">ShotCount quantifies that curve—turning your rejections into an input variable for growth.</p>
+</article>
+<aside class="md:w-[40%] w-full bg-white uppercase text-xs col-center gap-2 rounded-2xl card-shadow h-23">
+<ul class="w-full flex-center gap-4" id="shot-dots">
+    {Array.from({length: 8}).map((_, i) => <li class={`size-6 md:size-10.5 rounded-full ${i === 7 || i === 4 ? "bg-primary" : "bg-[#FD9891]"}`}> </li>)}
+</ul>
+    <p class="font-cunia text-black font-bold">every dot is a shot. <span class="text-primary">green dots are wins.</span>
+    </p>
+</aside>
+</section>
+
+<script>
+import("../scripts/scaleDot.js").then(({ Scaler }) => Scaler());
+
+</script>

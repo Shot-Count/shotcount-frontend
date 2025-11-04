@@ -1,0 +1,44 @@
+---
+import sectionImg from "@/assets/building.jpg";
+import { Image } from "astro:assets";
+---
+
+<section
+  class="w-full min-h-screen flex flex-col px-2 gap-10 items-center justify-between"
+>
+  <h1 class="text-center font-cunia uppercase text-foreground text-4xl lg:text-7xl">
+    We’re Building for High-Variance Operators
+  </h1>
+
+  <div
+    class="w-full lg:h-[496px] flex flex-col gap-6 bg-offWhite rounded-2xl py-20 md:py-5 px-6 md:flex-row items-center justify-between!"
+  >
+    <aside class="flex flex-col items-start gap-8">
+      <ul class="bg-accent rounded-full flex-center gap-5 p-2">
+        {
+          ["Founders", "sales", "applicants"].map((el, i) => (
+            <li
+              class={`${i < 1 && "bg-white"} text-[#22272B] md:text-base rounded-full shrink-0 py-3 capitalize px-4`}
+            >
+              {el}
+            </li>
+          ))
+        }
+      </ul>
+      <h3
+        class="font-bold font-open shrink-0 leading-none text-2xl lg:text-[40px] text-[#44546F]"
+      >
+        Founders expanding investor and partnership reach.
+      </h3>
+    </aside>
+    <figure
+      class="lg:w-[550px] w-full md:aspect-auto aspect-square shrink-0 lg:h-[440px] rounded-lg overflow-hidden relative"
+    >
+      <Image
+        src={sectionImg}
+        class={"object-cover w-full h-full "}
+        alt={"founders"}
+      />
+    </figure>
+  </div>
+</section>

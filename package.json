@@ -1,0 +1,19 @@
+{
+  "name": "shotcount",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@iconify/react": "^6.0.2",
+    "@tailwindcss/vite": "^4.1.16",
+    "astro": "^5.15.3",
+    "motion": "^12.23.24",
+    "tailwindcss": "^4.1.16"
+  }
+}

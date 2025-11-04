@@ -1,0 +1,48 @@
+---
+import DavidImage from "@/assets/davidDosu.png";
+import AkashImage from "@/assets/akash.png";
+import { Image } from "astro:assets";
+
+const foundingTeam = [
+  {
+    name: "David Dosu",
+    role: "CEO",
+    image: DavidImage,
+    bg: "bg-primary",
+  },
+  {
+    name: "S Akash",
+    role: "CTO",
+    image: AkashImage,
+    bg: "bg-secondary",
+  },
+];
+---
+
+<section
+  id="team"
+  class="w-full flex flex-col items-center pt-10 justify-between gap-10 md:gap-30"
+>
+  <h1 class="text-center font-cunia uppercase text-foreground text-4xl md:text-7xl">
+    Founding Team
+  </h1>
+
+  <section class="flex items-center md:flex-row md:justify-center! flex-col w-full gap-15">
+    {
+      foundingTeam.map(({ name, role, image, bg }, i) => (
+        <article class={`flex flex-col ${i === 0 ? "md:-rotate-[6.64deg]" : "md:rotate-[7.69deg]"} justify-between pt-4 gap-12 rounded-3xl bg-offWhite min-h-96 h-max w-70 overflow-hidden`}>
+          <div class="px-4  space-y-1">
+            <h6 class="font-cunia font-bold text-foreground text-4xl">{name}</h6>
+            <p class="text-base text-neutral">{role}</p>
+          </div>
+
+          <figure
+            class={`flex-center rounded-lg items-end! overflow-hidden relative w-full h-65 ${bg}`}
+          >
+            <Image src={image} loading="lazy" class={"max-w-[90%] absolute -bottom-18"} alt={name+"_profile_picture"}/>
+          </figure>
+        </article>
+      ))
+    }
+  </section>
+</section>

@@ -1,0 +1,17 @@
+---
+import logoImage from "@/assets/logo.svg";
+import { Image } from "astro:assets";
+---
+
+<header class="flex items-center justify-between w-full pt-10 px-4 lg:px-10 relative">
+  <figure class="absolute w-max">
+    <Image loading="eager" src={logoImage} class={"lg:max-w-none max-w-28"} alt="ShotCount Logo" />
+  </figure>
+
+  <nav class="hidden lg:flex justify-center w-full gap-12 text-black font-medium">
+    <a href="#howitworks">How it works</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#team">Team</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>

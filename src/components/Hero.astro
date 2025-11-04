@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import MockupImage from "@/assets/mockup.png";
+import Card from "./Card.astro";
+---
+
+<section id="hero" class="w-full flex flex-col relative items-center justify-between min-h-screen">
+<article class="col-center text-center gap-9">
+<h1 class="text-center font-cunia uppercase text-foreground text-4xl lg:text-7xl">Track every no. <br />win faster.</h1>
+<div class="col-center lg:p-0 p-4 text-base lg:text-sm gap-5">
+    <p>The AI-powered app that turns every pitch and rejection into progress. <br />
+Analyze what went wrong, refine your message, and get better with every attempt.</p>
+
+<button class="bg-primary text-foreground p-2 rounded-lg ring-1 px-3 font-semibold cursor-pointer ring-primary">Get early access</button>
+</div>
+</article>
+
+<Card type="shots" />
+<Card type="microsoft" />
+
+<Image loading={"eager"} src={MockupImage} class={"max-w-55"} alt="Mockup of the shotCount app" />
+
+</section>

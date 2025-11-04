@@ -1,0 +1,88 @@
+---
+
+const faqs = [
+  {
+    question: "What is ShotCount?",
+    answer:
+      "ShotCount helps you take more shots — and learn from every one. It’s an AI app that helps you turn rejection into feedback, grow your confidence, and increase your success rate over time.",
+  },
+  {
+    question: "Why focus on Rejection?",
+    answer:
+      "Because rejection is where growth happens. ShotCount turns it into an opportunity to improve and refine your approach.",
+  },
+  {
+    question: "Do I need to upload screenshots?",
+    answer:
+      "Nope — ShotCount uses text inputs and smart analysis. You can optionally upload screenshots for richer feedback, but it’s not required.",
+  },
+  {
+    question: "What kind of feedback will I get?",
+    answer:
+      "You’ll get constructive, AI-driven feedback designed to improve your confidence, communication, and strategy.",
+  },
+  {
+    question: "Who is it for?",
+    answer:
+      "Anyone who wants to turn rejection into learning — from job seekers to creators to founders pitching ideas.",
+  },
+  {
+    question: "Can it help me win faster?",
+    answer:
+      "Yes! By learning from each attempt, you’ll refine your approach and increase your success rate over time.",
+  },
+  {
+    question: "How private is my data?",
+    answer:
+      "Your data is encrypted and never shared. ShotCount prioritizes your privacy and security.",
+  },
+  {
+    question: "How much does it cost?",
+    answer:
+      "There’s a free tier for getting started, and premium plans for more in-depth insights and AI feedback.",
+  },
+  {
+    question: "When will it be available?",
+    answer:
+      "ShotCount is currently in development. Sign up early to get notified when it launches.",
+  },
+];
+---
+
+<section id="faq" class="w-full flex px-4 flex-col mt-10 items-center gap-10 md:gap-20">
+  <h1 class="text-center font-cunia uppercase text-foreground text-4xl md:text-7xl">
+    Everything You Need to Know.
+  </h1>
+
+  <ul class="max-w-3xl w-full flex flex-col items-center gap-6">
+    {faqs.map((el, i) => (
+      <li
+        class="faq-item w-full bg-[#F6F3F2] rounded-2xl cursor-pointer py-4 h-max px-8 overflow-hidden transition-all"
+        data-index={i}
+      >
+        <div class="flex items-center justify-between">
+          <p class="font-inter text-foreground font-medium md:text-lg">{el.question}</p>
+          <svg
+            class="faq-icon transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"
+            />
+          </svg>
+        </div>
+        <p class="faq-answer text-gray-600 md:text-base max-h-0 opacity-0 mt-0">
+          {el.answer}
+        </p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+import("../scripts/faq.js").then(({ setupFAQ }) => setupFAQ());
+</script>
