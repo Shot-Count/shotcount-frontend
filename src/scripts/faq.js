@@ -29,7 +29,7 @@ export function setupFAQ() {
         animate(
           answer,
           { opacity: 1, maxHeight: fullHeight, marginTop: 12 },
-          { duration: 0.45, easing: "ease-out" }
+          { duration: 0.3, easing: "ease-out" }
         );
 
         animate(icon, { rotate: 45 }, { duration: 0.25 });

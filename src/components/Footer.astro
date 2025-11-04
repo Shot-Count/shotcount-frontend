@@ -1,5 +1,6 @@
 ---
 import Logo from "@/assets/logo-black.png";
+import { APPCONFIG } from "@/utils/config";
 import { Image } from "astro:assets";
 ---
 
@@ -16,7 +17,7 @@ import { Image } from "astro:assets";
     <p>Download Shot Count</p>
     <div class="flex md:flex-row flex-col items-center gap-4">
       <a
-        href="#"
+        href={APPCONFIG.APP_URL.APP_STORE}
         class="bg-foreground text-white rounded-lg gap-1 p-2 px-3 font-semibold font-inter flex-center"
       >
         <svg
@@ -32,7 +33,7 @@ import { Image } from "astro:assets";
         Get on the App Store</a
       >
       <a
-        href="#"
+        href={APPCONFIG.APP_URL.PLAY_STORE}
         class="bg-foreground text-white rounded-lg gap-1 p-2 px-3 font-semibold font-inter flex-center"
       >
         <svg
@@ -59,7 +60,7 @@ import { Image } from "astro:assets";
       &copy; Copyright {new Date().getFullYear()}, All rights reserved
     </p>
     <figure class="flex-center gap-4">
-      <a href="#"
+      <a href={APPCONFIG.SOCIALS.LINKEDIN} target="_blank" rel="noopener" title="Go to Linkedin Page"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -71,7 +72,7 @@ import { Image } from "astro:assets";
           ></path></svg
         ></a
       >
-      <a href="#"
+      <a  href={APPCONFIG.SOCIALS.INSTAGRAM} target="_blank" rel="noopener" title="Go to Instagram Page"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -83,7 +84,7 @@ import { Image } from "astro:assets";
           ></path></svg
         ></a
       >
-      <a href="#"
+      <a  href={APPCONFIG.SOCIALS.twitter} target="_blank" rel="noopener" title="Go to Twitter Page"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

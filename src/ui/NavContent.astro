@@ -31,17 +31,22 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
+  window.addEventListener("DOMContentLoaded", async () => {
     const { toggleMobileNav } = await import("../scripts/nav.js")
     const closeBtn = document.querySelector("#closenav")
-    const closeList = document.querySelector("#nav-list a")
+   const closeLinks = document.querySelectorAll("#nav-list a")
+
+closeLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    toggleMobileNav("#nav", "#nav-list a", "close")
+  })
+})
+
 
     closeBtn?.addEventListener("click", () => {
       toggleMobileNav("#nav", "#nav-list a", "close")
     })
 
-    closeList?.addEventListener("click", () => {
-      toggleMobileNav("#nav", "#nav-list a", "close")
-    })
+  
   })
 </script>
