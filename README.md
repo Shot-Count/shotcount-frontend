@@ -1,46 +1,91 @@
-# Astro Starter Kit: Basics
+# ShotCount
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+**ShotCount helps you take more shots — and learn from every one.**  
+It’s an AI app that helps you turn rejection into feedback, grow your confidence, and increase your success rate over time.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
+## Tech stacks
+To offer simplicity while delivering lightning speed, **ShotCount** is built with:
+
+| Category | Tool | Purpose |
+|-----------|------|----------|
+| **Framework** | [Astro](https://astro.build) | Lightning-fast hybrid web framework |
+| **Styling** | [TailwindCSS](https://tailwindcss.com) | Utility-first styling for clean UI |
+| **Animations** | [Motion](https://motion.dev) | Smooth, composable animations |
+| **Package Manager** | [pnpm](https://pnpm.io) | Efficient, fast dependency management |
+| **Languages** | Astro, JavaScript, TypeScript | Core languages for flexibility and type safety |
+
+---
+
+### Project Structure
+
+```php
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── assets/          # Images for optimization
+│   ├── components/      # Sections
+│   ├── ui/              # Reusable ui elements
+│   ├── layouts/         # Page layouts
+│   ├── pages/           # Main app pages
+│   ├── styles/          # Global and component styles
+│   ├── scripts/         # JavaScript files for animations
+│   └── utils/           # Helpers and configurations
+│     └── config.ts      # Configuration file to edit important links or details (e.g: Socials, name, about, faq...etc)
+├── public/              # Static assets
+└── astro.config.mjs     # Astro configuration
+
 ```
+---
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## ⚙️ Setup & Installation
 
-## 🧞 Commands
+### Prerequisites
+- Node.js (v18 or higher)
+- pnpm (recommended)
 
-All commands are run from the root of the project, from a terminal:
+### Run locally
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+```bash
+# Clone the repository
+git clone https://github.com/Shot-Count/shotcount-frontend.git
 
-## 👀 Want to learn more?
+# Navigate to project directory
+cd shotCount
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+```
+- View on browser @ http://localhost:4321
+
+---
+
+### Dev Notes
+***Config edits***: All configurable content (links, names, text) can be updated in src/utils/config.ts.
+***Animations***: All animation scripts are and should be stored in src/scripts for easy navigation. It should then be imported dynamically into the needed file.
+***Components Naming***: Preferrably, All Components should be named using CamelCase. Naming components with snake case in JavaScript is madness.
+
+## Build and Deployment
+- Shotcount development live link is currently deployed on Vercel @ https://www.shot-count.vercel.app
+- Future purposes, Shotcount will be deployed on https://www.shotcount.app
+- Always build and test before pushing to the repo and review before merging
+
+  ```bash
+  # Run Build
+  pnpm build
+
+  # Preview production
+  pnpm preview
+  ``` 
+
+
+
+
