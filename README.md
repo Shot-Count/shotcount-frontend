@@ -69,9 +69,9 @@ pnpm dev
 ---
 
 ### Dev Notes
-***Config edits***: All configurable content (links, names, text) can be updated in src/utils/config.ts.
-***Animations***: All animation scripts are and should be stored in src/scripts for easy navigation. It should then be imported dynamically into the needed file.
-***Components Naming***: Preferrably, All Components should be named using CamelCase. Naming components with snake case in JavaScript is madness.
+- ***Config edits***: All configurable content (links, names, text) can be updated in src/utils/config.ts.
+- ***Animations***: All animation scripts are and should be stored in src/scripts for easy navigation. It should then be imported dynamically into the needed file.
+- ***Components Naming***: Preferrably, All Components should be named using CamelCase. Naming components with snake case in JavaScript is madness.
 
 ## Build and Deployment
 - Shotcount development live link is currently deployed on Vercel @ https://www.shot-count.vercel.app
