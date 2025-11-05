@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shotcount.vercel.app/sitemap.xml
+Sitemap: https://shot-count.vercel.app/sitemap.xml
