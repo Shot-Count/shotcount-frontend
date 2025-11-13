@@ -1,32 +1,261 @@
-<section id="popup" class="fixed inset-0 bg-black/50 hidden p-4 items-center justify-center z-50">
-  <div id="popup-content" class="bg-[#fff2ba] md:w-lg w-full rounded-xl p-6 text-black relative col-center gap-5">
+---
+import { challenges_key } from "@/data/challenges";
+---
 
-    <img src="/icons/star.svg" aria-hidden="true" loading="eager" alt="">
-
-    <button id="close-popup" class="absolute top-2 right-2 text-black cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="m12 14.122l5.303 5.303a1.5 1.5 0 0 0 2.122-2.122L14.12 12l5.304-5.303a1.5 1.5 0 1 0-2.122-2.121L12 9.879L6.697 4.576a1.5 1.5 0 1 0-2.122 2.12L9.88 12l-5.304 5.304a1.5 1.5 0 1 0 2.122 2.12z"/></g></svg>
+<section
+  id="popup"
+  class="fixed inset-0 font-sans bg-black/50 hidden p-4 items-center justify-center z-50"
+>
+  <div
+    id="popup-content"
+    class="bg-[#fff2ba] md:w-lg w-full rounded-xl p-6 text-black relative col-center gap-5"
+  >
+    <button
+      id="close-popup"
+      class="absolute top-2 right-2 text-black cursor-pointer"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><g fill="none" fill-rule="evenodd"
+          ><path
+            d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+          ></path><path
+            fill="currentColor"
+            d="m12 14.122l5.303 5.303a1.5 1.5 0 0 0 2.122-2.122L14.12 12l5.304-5.303a1.5 1.5 0 1 0-2.122-2.121L12 9.879L6.697 4.576a1.5 1.5 0 1 0-2.122 2.12L9.88 12l-5.304 5.304a1.5 1.5 0 1 0 2.122 2.12z"
+          ></path></g
+        ></svg
+      >
     </button>
 
+    <!-- <img src="/icons/star.svg" aria-hidden="true" loading="eager" alt="">
+
+
     <h4 class="font-cunia uppercase">Today's Challenge</h4>
-    <p class="max-w-[60%] text-center text-base">Pitch a product to someone outside your industry.</p>
+    <p class="max-w-[60%] text-center text-base">Pitch a product to someone outside your industry.</p> -->
+
+    <div id="content-container" class="w-full flex flex-col gap-4">
+      <h2 class="text-[#38414A] font-bold md:max-w-[80%] text-3xl">
+        What are you taking more shots at?
+      </h2>
+
+      <ul id="uLiist" class="col-center mt-6 gap-3 w-full">
+        {
+          challenges_key.map((item) => (
+            <li class="ring-1 p-5 challenge_list ring-[#1D2125] text-[#1D2125] w-full cursor-pointer rounded-lg flex items-center justify-between">
+              <label
+                for={item.value}
+                class="flex-center cursor-pointer select-none font-semibold gap-4 text-base"
+              >
+                <div set:html={item.icon} />
+                {item.label}
+              </label>
+              <input
+                type="radio"
+                class="opacity-0"
+                name="challenge_category"
+                id={item.value}
+                value={item.value}
+              />
+              <div
+                id="radio-indicator"
+                class="ring rounded-full size-4 flex-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  class="opacity-0"
+                  height="12"
+                  viewBox="0 0 12 12"
+                >
+                  <path
+                    fill="#9fe247"
+                    d="M9.765 3.205a.75.75 0 0 1 .03 1.06l-4.25 4.5a.75.75 0 0 1-1.075.015L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.705 1.704l3.72-3.939a.75.75 0 0 1 1.06-.03"
+                  />
+                </svg>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <button
+        id="generator"
+        disabled
+        aria-disabled="true"
+        class="bg-primary disabled:opacity-70 disabled:cursor-not-allowed text-foreground p-2 rounded-lg ring-1 px-3 font-semibold cursor-pointer ring-primary"
+        >Generate Challenge</button
+      >
+
+      <!-- <img src="/icons/star.svg" aria-hidden="true" loading="eager" alt="" />
+
+      <h4 class="font-cunia uppercase">Today's Challenge</h4>
+      <p class="max-w-[60%] text-center text-base">
+        Pitch a product to someone outside your industry.
+      </p> -->
+    </div>
   </div>
 </section>
 
 <script>
+  import { challenges_key } from "@/data/challenges";
+
   window.addEventListener("DOMContentLoaded", async () => {
     const { togglePopup } = await import("../scripts/popup.js");
+    const response = await fetch("/challenge.json");
+    const challengesData = await response.json();
 
     const closeBtn = document.querySelector("#close-popup");
-    closeBtn?.addEventListener("click", () =>
-      togglePopup("#popup", "#popup-content", "close")
-    );
+    closeBtn?.addEventListener("click", () => {
+      togglePopup("#popup", "#popup-content", "close");
 
-    const overlay = document.querySelector("#popup");
-  overlay?.addEventListener("click", (e) => {
-  const target = e.target;
-  if (target instanceof HTMLElement && target.id === "popup") {
-    togglePopup("#popup", "#popup-content", "close");
-  }
-})
+      setTimeout(() => {
+        ResetChallenge();
+      }, 800);
+    });
+
+    let selected: HTMLLIElement | null;
+    const container = document.querySelector("#content-container");
+    const generateBtn =
+      container?.querySelector<HTMLButtonElement>("#generator");
+
+    function setupChallengeSelection() {
+      const list = document.querySelectorAll<HTMLLIElement>(".challenge_list");
+      if (!list.length) return;
+
+      selected = list[0];
+      selected.classList.add("selected-challenge");
+      selected
+        .querySelector("#radio-indicator")!
+        .classList.add("radio-checked");
+
+      const selectedRadio = selected.querySelector<HTMLInputElement>(
+        'input[type="radio"]'
+      );
+      if (selectedRadio) {
+        (selectedRadio.checked = true), (selectedRadio.ariaChecked = "true");
+      }
+      if (generateBtn) {
+        generateBtn.disabled = false;
+        generateBtn.ariaDisabled = "false";
+      }
+
+      list.forEach((item) => {
+        item.addEventListener("click", () => {
+          if (selected) {
+            selected.classList.remove("selected-challenge");
+            selected
+              .querySelector("#radio-indicator")!
+              .classList.remove("radio-checked");
+          }
+          item.classList.add("selected-challenge");
+          selected = item;
+
+          const radio: HTMLInputElement | null = item.querySelector(
+            'input[type="radio"]'
+          );
+          if (radio) radio.checked = true;
+
+          const checkMark = item.querySelector("#radio-indicator");
+          checkMark?.classList.add("radio-checked");
+        });
+      });
+    }
+
+    function ResetChallenge() {
+      if (!container) return;
+
+      container.classList.remove("items-center");
+      container.innerHTML = "";
+
+      const heading = document.createElement("h2");
+      heading.className = "text-[#38414A] font-bold md:max-w-[80%] text-3xl";
+      heading.textContent = "What are you taking more shots at?";
+      container.appendChild(heading);
+
+      const ul = document.createElement("ul");
+      ul.id = "uLiist";
+      ul.className = "col-center mt-6 gap-3 w-full";
+      container.appendChild(ul);
+
+      challenges_key.forEach((item) => {
+        const li = document.createElement("li");
+        li.className =
+          "ring-1 p-5 challenge_list ring-[#1D2125] text-[#1D2125] w-full cursor-pointer rounded-lg flex items-center justify-between";
+        li.innerHTML = `
+      <label for="${item.value}" class="flex-center cursor-pointer select-none font-semibold gap-4 text-base">
+        <div>${item.icon}</div>
+        ${item.label}
+      </label>
+      <input type="radio" class="opacity-0" name="challenge_category" id="${item.value}" value="${item.value}" />
+      <div id="radio-indicator" class="ring rounded-full size-4 flex-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" class="opacity-0" height="12" viewBox="0 0 12 12">
+          <path fill="#9fe247" d="M9.765 3.205a.75.75 0 0 1 .03 1.06l-4.25 4.5a.75.75 0 0 1-1.075.015L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.705 1.704l3.72-3.939a.75.75 0 0 1 1.06-.03"/>
+        </svg>
+      </div>
+    `;
+        ul.appendChild(li);
+      });
+      const button = document.createElement("button");
+      button.id = "generator";
+      button.className =
+        "bg-primary disabled:opacity-70 disabled:cursor-not-allowed text-foreground p-2 rounded-lg ring-1 px-3 font-semibold cursor-pointer ring-primary";
+      button.textContent = "Generate Challenge";
+
+      button?.addEventListener("click", handleGenerate);
+
+      container.appendChild(button);
+
+      setupChallengeSelection();
+    }
+
+    const handleGenerate = () => {
+      const val = selected?.querySelector<HTMLInputElement>(
+        'input[type="radio"]'
+      )?.value;
+      if (!val) return;
+      const value = generateChallenge(val);
+
+      if (container) {
+        container.classList.add("items-center");
+        setContainerContent(`
+  <img id="sparkle" src="/icons/star.svg" aria-hidden="true" loading="eager" alt="" />
+  <h4 class="font-cunia uppercase">Today's Challenge</h4>
+  <p class="max-w-[60%] text-center text-base">${value}</p>
+`);
+
+        setTimeout(() => {
+          container?.querySelector("#sparkle")?.classList.add("scale-up");
+        }, 350);
+      }
+    };
+
+    generateBtn?.addEventListener("click", handleGenerate);
+
+    setupChallengeSelection();
+
+    function generateChallenge(key: string) {
+      const data = challengesData[key];
+      const randomIndex = Math.floor(Math.random() * data.length);
+      return data[randomIndex];
+    }
+
+    function setContainerContent(html: string) {
+      if (!container) return;
+
+      container.classList.add("fade-out");
+
+      setTimeout(() => {
+        container.innerHTML = html;
+
+        container.classList.remove("fade-out");
+        container.classList.add("fade-in");
+
+        setTimeout(() => {
+          container.classList.remove("fade-in");
+        }, 300);
+      }, 300);
+    }
   });
 </script>

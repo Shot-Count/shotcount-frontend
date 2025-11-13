@@ -1,5 +1,3 @@
-
-
 <section
   class="w-full min-h-96 rounded-2xl max-h-[480px] bg-secondary relative hidden md:flex items-center justify-between"
 >
@@ -8,7 +6,7 @@
       Don’t click this button to generate a random challenge... wink.
     </p>
     <button
-    id="open-popup"
+      id="open-popup"
       class="py-1.5 font-inter font-semibold cursor-pointer bg-white rounded-lg text-foreground px-3"
       >Generate Challenge</button
     >
@@ -21,8 +19,10 @@
     const { togglePopup } = await import("../scripts/popup.js");
     const openBtn = document.querySelector("#open-popup");
 
-    openBtn?.addEventListener("click", () =>
-      togglePopup("#popup", "#popup-content", "open")
-    );
+    function handleClick() {
+      togglePopup("#popup", "#popup-content", "open");
+    }
+
+    openBtn?.addEventListener("click", handleClick);
   });
 </script>

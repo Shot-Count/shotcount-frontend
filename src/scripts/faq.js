@@ -1,4 +1,4 @@
-import { animate, stagger } from "motion";
+import { animate } from "motion";
 
 export function setupFAQ() {
   const items = document.querySelectorAll(".faq-item");
