@@ -1,8 +1,8 @@
 <section
-  class="w-full min-h-96 rounded-2xl max-h-[480px] bg-secondary relative hidden md:flex items-center justify-between"
+  class="max-w-[90%] md:max-w-[70%] lg:max-w-none overflow-hidden w-fit  md:w-full min-h-96 rounded-2xl h-[450px] md:h-[600px] lg:h-[480px] bg-secondary relative flex items-center justify-center md:justify-between"
 >
-  <article class="flex px-10 flex-col items-start gap-18">
-    <p class="text-foreground font-open leading-14 text-5xl">
+  <article class="flex px-4 md:px-10 flex-col z-10 items-center text-center lg:text-left lg:items-start gap-18">
+    <p class="text-foreground font-open lg:leading-14 text-3xl md:text-5xl">
       Don’t click this button to generate a random challenge... wink.
     </p>
     <button
@@ -11,7 +11,8 @@
       >Generate Challenge</button
     >
   </article>
-  <img src="/svgs/magnet.svg" loading="lazy" class="max-w-[50%]" alt="" />
+  <img src="/svgs/magnet.svg" loading="lazy" class="hidden lg:block relative md:max-w-[50%]" alt="" />
+  <img src="/svgs/magnet2.svg" loading="lazy" class="block lg:hidden w-full absolute bottom-0 left-0 " alt="" />
 </section>
 
 <script>
