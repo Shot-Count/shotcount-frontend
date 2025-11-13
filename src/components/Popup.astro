@@ -11,6 +11,7 @@ import { challenges_key } from "@/data/challenges";
     class="bg-[#fff2ba] md:w-lg w-full rounded-xl p-6 text-black relative col-center gap-5"
   >
     <button
+    aria-label="Close"
       id="close-popup"
       class="absolute top-2 right-2 text-black cursor-pointer"
     >
@@ -36,15 +37,15 @@ import { challenges_key } from "@/data/challenges";
     <h4 class="font-cunia uppercase">Today's Challenge</h4>
     <p class="max-w-[60%] text-center text-base">Pitch a product to someone outside your industry.</p> -->
 
-    <div id="content-container" class="w-full flex flex-col gap-4">
+    <div id="content-container" aria-live="polite" class="w-full flex flex-col gap-4">
       <h2 class="text-[#38414A] font-bold md:max-w-[80%] text-3xl">
         What are you taking more shots at?
       </h2>
 
-      <ul id="uLiist" class="col-center mt-6 gap-3 w-full">
+      <ul id="uLiist" role="radiogroup" class="col-center mt-6 gap-3 w-full">
         {
           challenges_key.map((item) => (
-            <li class="ring-1 p-5 challenge_list ring-[#1D2125] text-[#1D2125] w-full cursor-pointer rounded-lg flex items-center justify-between">
+            <li role="radio" tabindex="0" class="ring-1 p-5 challenge_list ring-[#1D2125] text-[#1D2125] w-full cursor-pointer rounded-lg flex items-center justify-between">
               <label
                 for={item.value}
                 class="flex-center cursor-pointer select-none font-semibold gap-4 text-base"
@@ -60,8 +61,8 @@ import { challenges_key } from "@/data/challenges";
                 value={item.value}
               />
               <div
-                id="radio-indicator"
-                class="ring rounded-full size-4 flex-center"
+                
+                class="ring radio-indicator rounded-full size-4 flex-center"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +128,7 @@ import { challenges_key } from "@/data/challenges";
       selected = list[0];
       selected.classList.add("selected-challenge");
       selected
-        .querySelector("#radio-indicator")!
+        .querySelector(".radio-indicator")!
         .classList.add("radio-checked");
 
       const selectedRadio = selected.querySelector<HTMLInputElement>(
@@ -146,7 +147,7 @@ import { challenges_key } from "@/data/challenges";
           if (selected) {
             selected.classList.remove("selected-challenge");
             selected
-              .querySelector("#radio-indicator")!
+              .querySelector(".radio-indicator")!
               .classList.remove("radio-checked");
           }
           item.classList.add("selected-challenge");
@@ -157,7 +158,7 @@ import { challenges_key } from "@/data/challenges";
           );
           if (radio) radio.checked = true;
 
-          const checkMark = item.querySelector("#radio-indicator");
+          const checkMark = item.querySelector(".radio-indicator");
           checkMark?.classList.add("radio-checked");
         });
       });
@@ -177,10 +178,12 @@ import { challenges_key } from "@/data/challenges";
       const ul = document.createElement("ul");
       ul.id = "uLiist";
       ul.className = "col-center mt-6 gap-3 w-full";
+      ul.role="radiogroup"
       container.appendChild(ul);
 
       challenges_key.forEach((item) => {
         const li = document.createElement("li");
+        li.role = "radio"
         li.className =
           "ring-1 p-5 challenge_list ring-[#1D2125] text-[#1D2125] w-full cursor-pointer rounded-lg flex items-center justify-between";
         li.innerHTML = `
@@ -189,7 +192,7 @@ import { challenges_key } from "@/data/challenges";
         ${item.label}
       </label>
       <input type="radio" class="opacity-0" name="challenge_category" id="${item.value}" value="${item.value}" />
-      <div id="radio-indicator" class="ring rounded-full size-4 flex-center">
+      <div class="ring radio-indicator rounded-full size-4 flex-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" class="opacity-0" height="12" viewBox="0 0 12 12">
           <path fill="#9fe247" d="M9.765 3.205a.75.75 0 0 1 .03 1.06l-4.25 4.5a.75.75 0 0 1-1.075.015L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.705 1.704l3.72-3.939a.75.75 0 0 1 1.06-.03"/>
         </svg>
