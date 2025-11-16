@@ -25,17 +25,17 @@ export const APPCONFIG = {
 export const Tabs = [
   {
     title: "Founders",
-    content: "Founders expanding investor and partnership reach.",
+    content: "More investors reach. Better follow ups. Faster wins.",
     image: image1.src
   },
   {
     title: "Sales",
-    content: "Sales teams refining outreach precision and follow-up strategy",
+    content: "Higher volume. Better timing. Clearer messages.",
     image: image2.src
   },
   {
     title: "Applicants",
-    content: "Applicants turning rejection into insight and momentum.",
+    content: "Do more with ease. Get interviews. Get offers.",
     image: image3.src
   },
 ]
