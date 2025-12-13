@@ -3,8 +3,8 @@ import image2 from "@/assets/image.jpg"
 import image3 from "@/assets/applicant.jpg"
 
 export enum Config {
-  domain = "https://shot-count.vercel.app/",
-  description = "ShotCount helps you take more shots, learn from rejection, and grow your confidence with AI-powered insights.",
+  domain = "https://shotcount.app/",
+  description = "ShotCount is an AI app that turns your goals into plans, upgrades the assets needed to win, drafts the outreach, and drives follow up until you get a win or a clear close.",
   title = "ShotCount",
 }
 
