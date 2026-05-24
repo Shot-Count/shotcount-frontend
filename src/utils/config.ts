@@ -3,7 +3,7 @@ import image2 from "@/assets/image.jpg"
 import image3 from "@/assets/applicant.jpg"
 
 export enum Config {
-  domain = "https://shot-count.vercel.app/",
+  domain = "https://shotcount.app",
   description = "ShotCount helps you take more shots, learn from rejection, and grow your confidence with AI-powered insights.",
   title = "ShotCount",
 }

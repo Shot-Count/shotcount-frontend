@@ -1,0 +1,288 @@
+---
+const appBaseUrl = (import.meta.env.PUBLIC_SHOTCOUNT_APP_BASE_URL || "").replace(/\/$/, "");
+const googleClientId = (
+  import.meta.env.PUBLIC_GOOGLE_AUTH_CLIENT_ID ||
+  "368303232542-n47alare1qmc9shtbgpbtid8j644ham5.apps.googleusercontent.com"
+).trim();
+---
+
+<div
+  id="shotcount-auth-root"
+  data-shotcount-auth-root
+  data-app-base-url={appBaseUrl}
+  data-google-client-id={googleClientId}
+  class="pointer-events-none fixed inset-0 z-50 opacity-0 transition-opacity duration-200"
+  aria-hidden="true"
+>
+  <div data-shotcount-auth-backdrop class="absolute inset-0 bg-black/40"></div>
+  <div class="flex min-h-screen items-center justify-center px-4 py-8">
+    <section
+      data-shotcount-auth-panel
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="shotcount-auth-title"
+      class="pointer-events-auto relative w-full max-w-[560px] rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_28px_90px_rgba(0,0,0,0.14)] md:p-8"
+    >
+      <button
+        type="button"
+        data-shotcount-auth-close
+        class="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-[#1D2125] text-white transition hover:bg-black"
+        aria-label="Close sign in"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="flex flex-col gap-6 pt-8 md:pt-10">
+        <div class="flex flex-col gap-3 text-center">
+          <p class="text-[12px] font-semibold uppercase tracking-[0.22em] text-neutral-dark">Start taking shots</p>
+          <h2 id="shotcount-auth-title" class="font-cunia text-3xl uppercase text-foreground md:text-5xl">Welcome to ShotCount</h2>
+          <p data-shotcount-auth-copy class="mx-auto max-w-[400px] text-sm leading-6 text-neutral md:text-base">
+            Continue with Google to build your opportunity system and get matched faster.
+          </p>
+        </div>
+
+        <div class="rounded-[28px] border border-black/8 bg-offWhite px-4 py-5 md:px-5">
+          <div id="shotcount-google-button" class="flex min-h-[48px] items-center justify-center"></div>
+          <p data-shotcount-auth-error class="hidden pt-4 text-center text-sm font-medium text-[#B3471C]">
+            We couldn’t sign you in with Google. Try again.
+          </p>
+          <p data-shotcount-auth-config-error class="hidden pt-4 text-center text-sm font-medium text-[#B3471C]">
+            Google sign-in is not configured yet.
+          </p>
+        </div>
+
+        <div class="rounded-[24px] border border-black/6 bg-white px-5 py-4 text-center text-sm leading-6 text-neutral">
+          By continuing, you agree to the ShotCount terms and privacy policy.
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector("[data-shotcount-auth-root]");
+
+  if (root) {
+    const backdrop = root.querySelector("[data-shotcount-auth-backdrop]");
+    const panel = root.querySelector("[data-shotcount-auth-panel]");
+    const closeButton = root.querySelector("[data-shotcount-auth-close]");
+    const googleButton = root.querySelector("#shotcount-google-button");
+    const copy = root.querySelector("[data-shotcount-auth-copy]");
+    const errorNode = root.querySelector("[data-shotcount-auth-error]");
+    const configErrorNode = root.querySelector("[data-shotcount-auth-config-error]");
+    const appBaseUrl = root.dataset.appBaseUrl || window.location.origin;
+    const googleClientId = root.dataset.googleClientId || "";
+    let isOpen = false;
+    let googleInitialized = false;
+    let activeMode = "signup";
+
+    function queryState() {
+      return new URLSearchParams(window.location.search);
+    }
+
+    function clearMessage() {
+      errorNode?.classList.add("hidden");
+      configErrorNode?.classList.add("hidden");
+    }
+
+    function applyMode(mode) {
+      activeMode = mode === "signin" ? "signin" : "signup";
+      if (!copy) {
+        return;
+      }
+
+      copy.textContent =
+        activeMode === "signin"
+          ? "Continue with Google to get back into your ShotCount workspace."
+          : "Continue with Google to build your opportunity system and get matched faster.";
+    }
+
+    function updateUrlForModal(open, mode, error) {
+      const next = queryState();
+      if (open) {
+        next.set("auth", mode);
+        if (error) {
+          next.set("error", error);
+        } else {
+          next.delete("error");
+        }
+      } else {
+        next.delete("auth");
+        next.delete("error");
+      }
+
+      const query = next.toString();
+      const nextUrl = query ? `${window.location.pathname}?${query}${window.location.hash}` : `${window.location.pathname}${window.location.hash}`;
+      window.history.replaceState({}, "", nextUrl);
+    }
+
+    function setModalOpen(open, { updateUrl = true, mode = activeMode, error = "" } = {}) {
+      isOpen = open;
+      root.classList.toggle("pointer-events-none", !open);
+      root.classList.toggle("opacity-0", !open);
+      root.classList.toggle("opacity-100", open);
+      root.setAttribute("aria-hidden", open ? "false" : "true");
+      document.body.classList.toggle("overflow-hidden", open);
+      applyMode(mode);
+      clearMessage();
+
+      if (error && errorNode) {
+        errorNode.textContent =
+          error === "google-signin-unavailable"
+            ? "Google sign-in is temporarily unavailable. Try again shortly."
+            : "We couldn’t sign you in with Google. Try again.";
+        errorNode.classList.remove("hidden");
+      }
+
+      if (updateUrl) {
+        updateUrlForModal(open, activeMode, error);
+      }
+    }
+
+    function buildRedirectTarget() {
+      const params = queryState();
+      return params.get("redirect") || "/app/jobs";
+    }
+
+    function submitCredentialToApp(credential) {
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = `${appBaseUrl}/auth/google`;
+      form.style.display = "none";
+
+      const credentialInput = document.createElement("input");
+      credentialInput.type = "hidden";
+      credentialInput.name = "credential";
+      credentialInput.value = credential;
+
+      const redirectInput = document.createElement("input");
+      redirectInput.type = "hidden";
+      redirectInput.name = "redirect";
+      redirectInput.value = buildRedirectTarget();
+
+      form.appendChild(credentialInput);
+      form.appendChild(redirectInput);
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    function renderGoogleButton() {
+      if (!googleButton || !window.google?.accounts?.id) {
+        return;
+      }
+
+      googleButton.innerHTML = "";
+      window.google.accounts.id.renderButton(googleButton, {
+        theme: "outline",
+        size: "large",
+        text: "continue_with",
+        shape: "pill",
+        width: Math.min(panel?.clientWidth ? panel.clientWidth - 80 : 400, 420),
+      });
+    }
+
+    function loadGoogleScript() {
+      if (window.google?.accounts?.id) {
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve, reject) => {
+        const existing = document.querySelector('script[data-shotcount-google-script="true"]');
+        if (existing) {
+          existing.addEventListener("load", () => resolve(), { once: true });
+          existing.addEventListener("error", () => reject(new Error("google-script-error")), { once: true });
+          return;
+        }
+
+        const script = document.createElement("script");
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.defer = true;
+        script.dataset.shotcountGoogleScript = "true";
+        script.addEventListener("load", () => resolve(), { once: true });
+        script.addEventListener("error", () => reject(new Error("google-script-error")), { once: true });
+        document.head.appendChild(script);
+      });
+    }
+
+    async function ensureGoogleReady() {
+      clearMessage();
+      if (!googleClientId) {
+        configErrorNode?.classList.remove("hidden");
+        return;
+      }
+
+      try {
+        await loadGoogleScript();
+      } catch {
+        errorNode?.classList.remove("hidden");
+        return;
+      }
+
+      if (!window.google?.accounts?.id) {
+        errorNode?.classList.remove("hidden");
+        return;
+      }
+
+      if (!googleInitialized) {
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: (response) => {
+            if (!response?.credential) {
+              errorNode?.classList.remove("hidden");
+              return;
+            }
+            submitCredentialToApp(response.credential);
+          },
+          ux_mode: "popup",
+          context: "signup",
+          use_fedcm_for_prompt: true,
+          auto_select: false,
+        });
+        googleInitialized = true;
+      }
+
+      renderGoogleButton();
+    }
+
+    function openModal(mode = "signup", error = "") {
+      setModalOpen(true, { mode, error });
+      void ensureGoogleReady();
+    }
+
+    function closeModal() {
+      setModalOpen(false);
+    }
+
+    document.querySelectorAll("[data-shotcount-auth-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        const mode = trigger.getAttribute("data-shotcount-auth-trigger") || "signup";
+        openModal(mode);
+      });
+    });
+
+    backdrop?.addEventListener("click", closeModal);
+    closeButton?.addEventListener("click", closeModal);
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen) {
+        closeModal();
+      }
+    });
+
+    const params = queryState();
+    const authMode = params.get("auth");
+    const error = params.get("error") || "";
+    if (authMode === "signup" || authMode === "signin") {
+      openModal(authMode, error);
+    }
+
+    window.addEventListener("resize", () => {
+      if (isOpen && googleInitialized) {
+        renderGoogleButton();
+      }
+    });
+  }
+</script>
