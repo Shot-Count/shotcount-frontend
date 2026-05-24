@@ -21,7 +21,7 @@ const googleClientId = (
       role="dialog"
       aria-modal="true"
       aria-labelledby="shotcount-auth-title"
-      class="pointer-events-auto relative w-full max-w-[560px] rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_28px_90px_rgba(0,0,0,0.14)] md:p-8"
+      class="pointer-events-none relative w-full max-w-[560px] rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_28px_90px_rgba(0,0,0,0.14)] md:p-8"
     >
       <button
         type="button"
@@ -121,8 +121,11 @@ const googleClientId = (
     function setModalOpen(open, { updateUrl = true, mode = activeMode, error = "" } = {}) {
       isOpen = open;
       root.classList.toggle("pointer-events-none", !open);
+      root.classList.toggle("pointer-events-auto", open);
       root.classList.toggle("opacity-0", !open);
       root.classList.toggle("opacity-100", open);
+      panel?.classList.toggle("pointer-events-none", !open);
+      panel?.classList.toggle("pointer-events-auto", open);
       root.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.classList.toggle("overflow-hidden", open);
       applyMode(mode);
