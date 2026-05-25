@@ -13,6 +13,38 @@
       "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/auth/:path*"
     },
     {
+      "source": "/openings",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/jobs"
+    },
+    {
+      "source": "/resume",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/resume"
+    },
+    {
+      "source": "/applications",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/applications"
+    },
+    {
+      "source": "/outreach",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/outreach"
+    },
+    {
+      "source": "/analytics",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/analytics"
+    },
+    {
+      "source": "/profile",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/profile"
+    },
+    {
+      "source": "/settings",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/settings"
+    },
+    {
+      "source": "/goals",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/goals"
+    },
+    {
       "source": "/onboarding",
       "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/onboarding"
     },

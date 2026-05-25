@@ -91,6 +91,7 @@ const googleClientId = (
     let isOpen = false;
     let googleInitialized = false;
     let activeMode = "signup";
+    let oneTapAttempted = false;
     let signInWatchdogTimer = null;
 
     function queryState() {
@@ -161,6 +162,10 @@ const googleClientId = (
           : "Continue with Google to build your opportunity system and get matched faster.";
     }
 
+    function parseMode(rawValue) {
+      return rawValue === "signin" ? "signin" : "signup";
+    }
+
     function updateUrlForModal(open, mode, error) {
       const next = queryState();
       if (open) {
@@ -212,10 +217,10 @@ const googleClientId = (
 
     function buildRedirectTarget() {
       const params = queryState();
-      return params.get("redirect") || "/app/jobs";
+      return params.get("redirect") || "/openings";
     }
 
-    function submitCredentialToApp(credential) {
+    function submitCredentialToApp(credential, mode = activeMode) {
       clearSignInWatchdog();
       let authPostUrl = "/auth/google";
       try {
@@ -244,8 +249,14 @@ const googleClientId = (
       redirectInput.name = "redirect";
       redirectInput.value = buildRedirectTarget();
 
+      const modeInput = document.createElement("input");
+      modeInput.type = "hidden";
+      modeInput.name = "mode";
+      modeInput.value = parseMode(mode);
+
       form.appendChild(credentialInput);
       form.appendChild(redirectInput);
+      form.appendChild(modeInput);
       document.body.appendChild(form);
       form.submit();
     }
@@ -292,26 +303,48 @@ const googleClientId = (
       });
     }
 
-    async function ensureGoogleReady() {
-      clearMessage();
+    function promptGoogleOneTap() {
+      if (oneTapAttempted || isOpen || !window.google?.accounts?.id || isLikelyInAppBrowser()) {
+        return;
+      }
+
+      oneTapAttempted = true;
+      applyMode("signin");
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed?.() || notification.isSkippedMoment?.()) {
+          oneTapAttempted = false;
+        }
+      });
+    }
+
+    async function ensureGoogleReady({ surfaceErrors = true, promptOneTap = false } = {}) {
+      if (surfaceErrors) {
+        clearMessage();
+      }
       if (!googleClientId) {
-        configErrorNode?.classList.remove("hidden");
+        if (surfaceErrors) {
+          configErrorNode?.classList.remove("hidden");
+        }
         return;
       }
 
       try {
         await loadGoogleScript();
       } catch {
-        errorNode?.classList.remove("hidden");
+        if (surfaceErrors) {
+          errorNode?.classList.remove("hidden");
+        }
         return;
       }
 
       if (!window.google?.accounts?.id) {
-        errorNode?.classList.remove("hidden");
+        if (surfaceErrors) {
+          errorNode?.classList.remove("hidden");
+        }
         return;
       }
 
-      if (isLikelyInAppBrowser()) {
+      if (surfaceErrors && isLikelyInAppBrowser()) {
         showInAppBrowserHint();
       }
 
@@ -320,24 +353,30 @@ const googleClientId = (
           client_id: googleClientId,
           callback: (response) => {
             if (!response?.credential) {
-              errorNode?.classList.remove("hidden");
+              if (surfaceErrors) {
+                errorNode?.classList.remove("hidden");
+              }
               return;
             }
-            submitCredentialToApp(response.credential);
+            submitCredentialToApp(response.credential, activeMode);
           },
           ux_mode: "popup",
-          context: "signup",
+          context: "signin",
           auto_select: false,
         });
         googleInitialized = true;
       }
 
       renderGoogleButton();
+
+      if (promptOneTap) {
+        promptGoogleOneTap();
+      }
     }
 
     function openModal(mode = "signup", error = "") {
       setModalOpen(true, { mode, error });
-      void ensureGoogleReady();
+      void ensureGoogleReady({ surfaceErrors: true, promptOneTap: false });
     }
 
     function closeModal() {
@@ -348,7 +387,7 @@ const googleClientId = (
     document.querySelectorAll("[data-shotcount-auth-trigger]").forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
         event.preventDefault();
-        const mode = trigger.getAttribute("data-shotcount-auth-trigger") || "signup";
+        const mode = parseMode(trigger.getAttribute("data-shotcount-auth-trigger"));
         openModal(mode);
       });
     });
@@ -366,6 +405,8 @@ const googleClientId = (
     const error = params.get("error") || "";
     if (authMode === "signup" || authMode === "signin") {
       openModal(authMode, error);
+    } else {
+      void ensureGoogleReady({ surfaceErrors: false, promptOneTap: true });
     }
 
     window.addEventListener("resize", () => {
