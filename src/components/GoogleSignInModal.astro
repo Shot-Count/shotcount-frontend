@@ -51,6 +51,18 @@ const googleClientId = (
           <p data-shotcount-auth-config-error class="hidden pt-4 text-center text-sm font-medium text-[#B3471C]">
             Google sign-in is not configured yet.
           </p>
+          <p data-shotcount-auth-webview-hint class="hidden pt-4 text-center text-sm font-medium text-[#B3471C]">
+            Google sign-in can be blocked in some in-app browsers. Open ShotCount in Safari or Chrome and try again.
+          </p>
+          <a
+            data-shotcount-auth-open-browser
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden mt-3 inline-flex w-full items-center justify-center rounded-[999px] border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-foreground transition hover:bg-[#F6F7FA]"
+          >
+            Open in browser
+          </a>
         </div>
 
         <div class="rounded-[24px] border border-black/6 bg-white px-5 py-4 text-center text-sm leading-6 text-neutral">
@@ -72,11 +84,14 @@ const googleClientId = (
     const copy = root.querySelector("[data-shotcount-auth-copy]");
     const errorNode = root.querySelector("[data-shotcount-auth-error]");
     const configErrorNode = root.querySelector("[data-shotcount-auth-config-error]");
+    const webviewHintNode = root.querySelector("[data-shotcount-auth-webview-hint]");
+    const openBrowserLink = root.querySelector("[data-shotcount-auth-open-browser]");
     const appBaseUrl = root.dataset.appBaseUrl || window.location.origin;
     const googleClientId = root.dataset.googleClientId || "";
     let isOpen = false;
     let googleInitialized = false;
     let activeMode = "signup";
+    let signInWatchdogTimer = null;
 
     function queryState() {
       return new URLSearchParams(window.location.search);
@@ -85,6 +100,53 @@ const googleClientId = (
     function clearMessage() {
       errorNode?.classList.add("hidden");
       configErrorNode?.classList.add("hidden");
+      webviewHintNode?.classList.add("hidden");
+      openBrowserLink?.classList.add("hidden");
+    }
+
+    function isLikelyInAppBrowser() {
+      const userAgent = navigator.userAgent || "";
+      const isIosDevice =
+        /iPad|iPhone|iPod/i.test(userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isIosSafari = isIosDevice && /Safari/i.test(userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(userAgent);
+      const hasEmbeddedSignals = /FBAN|FBAV|Instagram|Line|LinkedInApp|TikTok|Snapchat|Twitter|WebView|\bwv\b|; wv\)|Electron/i.test(
+        userAgent,
+      );
+      const isLikelyIosWebView = isIosDevice && !isIosSafari && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(userAgent);
+      return hasEmbeddedSignals || isLikelyIosWebView;
+    }
+
+    function showInAppBrowserHint() {
+      webviewHintNode?.classList.remove("hidden");
+      if (openBrowserLink instanceof HTMLAnchorElement) {
+        openBrowserLink.href = window.location.href;
+      }
+      openBrowserLink?.classList.remove("hidden");
+    }
+
+    function clearSignInWatchdog() {
+      if (signInWatchdogTimer) {
+        window.clearTimeout(signInWatchdogTimer);
+        signInWatchdogTimer = null;
+      }
+    }
+
+    function startSignInWatchdog() {
+      clearSignInWatchdog();
+      signInWatchdogTimer = window.setTimeout(() => {
+        if (!isOpen) {
+          return;
+        }
+        if (isLikelyInAppBrowser()) {
+          errorNode.textContent = "Google sign-in is blocked in this in-app browser.";
+          errorNode.classList.remove("hidden");
+          showInAppBrowserHint();
+          return;
+        }
+        errorNode.textContent = "We couldn’t sign you in with Google. Try again.";
+        errorNode.classList.remove("hidden");
+      }, 6000);
     }
 
     function applyMode(mode) {
@@ -132,10 +194,14 @@ const googleClientId = (
       clearMessage();
 
       if (error && errorNode) {
-        errorNode.textContent =
-          error === "google-signin-unavailable"
-            ? "Google sign-in is temporarily unavailable. Try again shortly."
-            : "We couldn’t sign you in with Google. Try again.";
+        if (error === "google-signin-unavailable") {
+          errorNode.textContent = "Google sign-in is temporarily unavailable. Try again shortly.";
+        } else if (isLikelyInAppBrowser()) {
+          errorNode.textContent = "Google sign-in is blocked in this in-app browser.";
+          showInAppBrowserHint();
+        } else {
+          errorNode.textContent = "We couldn’t sign you in with Google. Try again.";
+        }
         errorNode.classList.remove("hidden");
       }
 
@@ -150,6 +216,7 @@ const googleClientId = (
     }
 
     function submitCredentialToApp(credential) {
+      clearSignInWatchdog();
       let authPostUrl = "/auth/google";
       try {
         const configuredOrigin = new URL(appBaseUrl, window.location.origin).origin;
@@ -195,6 +262,9 @@ const googleClientId = (
         text: "continue_with",
         shape: "pill",
         width: Math.min(panel?.clientWidth ? panel.clientWidth - 80 : 400, 420),
+        click_listener: () => {
+          startSignInWatchdog();
+        },
       });
     }
 
@@ -241,6 +311,10 @@ const googleClientId = (
         return;
       }
 
+      if (isLikelyInAppBrowser()) {
+        showInAppBrowserHint();
+      }
+
       if (!googleInitialized) {
         window.google.accounts.id.initialize({
           client_id: googleClientId,
@@ -267,6 +341,7 @@ const googleClientId = (
     }
 
     function closeModal() {
+      clearSignInWatchdog();
       setModalOpen(false);
     }
 
