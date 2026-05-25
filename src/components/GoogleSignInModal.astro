@@ -150,9 +150,21 @@ const googleClientId = (
     }
 
     function submitCredentialToApp(credential) {
+      let authPostUrl = "/auth/google";
+      try {
+        const configuredOrigin = new URL(appBaseUrl, window.location.origin).origin;
+        const currentOrigin = window.location.origin;
+        authPostUrl =
+          configuredOrigin === currentOrigin
+            ? `${configuredOrigin}/auth/google`
+            : `${currentOrigin}/auth/google`;
+      } catch {
+        authPostUrl = "/auth/google";
+      }
+
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = `${appBaseUrl}/auth/google`;
+      form.action = authPostUrl;
       form.style.display = "none";
 
       const credentialInput = document.createElement("input");
