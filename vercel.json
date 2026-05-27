@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/openings",
+      "destination": "/app/jobs",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/app/:path*",
@@ -11,10 +18,6 @@
     {
       "source": "/auth/:path*",
       "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/auth/:path*"
-    },
-    {
-      "source": "/openings",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/jobs"
     },
     {
       "source": "/resume",

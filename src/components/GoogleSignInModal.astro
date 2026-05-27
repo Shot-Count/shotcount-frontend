@@ -217,7 +217,7 @@ const googleClientId = (
 
     function buildRedirectTarget() {
       const params = queryState();
-      return params.get("redirect") || "/openings";
+      return params.get("redirect") || "/app/jobs";
     }
 
     function submitCredentialToApp(credential, mode = activeMode) {
