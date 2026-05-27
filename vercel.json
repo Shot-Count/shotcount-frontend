@@ -103,10 +103,6 @@
     {
       "source": "/apple-touch-icon-v2.png",
       "destination": "https://shotcount-web.dosudavy.workers.dev/apple-touch-icon-v2.png"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }
