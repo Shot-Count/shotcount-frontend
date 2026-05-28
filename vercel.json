@@ -89,6 +89,10 @@
       "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/offline"
     },
     {
+      "source": "/_next/:path*",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/_next/:path*"
+    },
+    {
       "source": "/manifest.webmanifest",
       "destination": "https://shotcount-web.dosudavy.workers.dev/manifest.webmanifest"
     },
