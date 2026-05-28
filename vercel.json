@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/openings",
+      "destination": "/app/jobs",
+      "permanent": true
+    },
+    {
+      "source": "/openings/:path*",
+      "destination": "/app/jobs",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/app/:path*",
