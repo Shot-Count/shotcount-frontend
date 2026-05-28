@@ -29,6 +29,10 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/app/resume"
     },
     {
+      "source": "/jobs",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/jobs"
+    },
+    {
       "source": "/applications",
       "destination": "https://shotcount-web.dosudavy.workers.dev/app/applications"
     },
@@ -37,12 +41,20 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/app/outreach"
     },
     {
+      "source": "/coaching",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/app/coaching"
+    },
+    {
       "source": "/analytics",
       "destination": "https://shotcount-web.dosudavy.workers.dev/app/analytics"
     },
     {
       "source": "/profile",
       "destination": "https://shotcount-web.dosudavy.workers.dev/app/profile"
+    },
+    {
+      "source": "/info",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/info"
     },
     {
       "source": "/settings",
