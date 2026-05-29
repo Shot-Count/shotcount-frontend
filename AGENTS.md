@@ -3,6 +3,7 @@
 Treat the current deployed ShotCount web state as the product baseline for future edits.
 
 - Do not restore or reintroduce legacy stack, black shell, swipe shell, or old `/openings` flows unless David explicitly asks for that exact change.
+- Make additions and edits only against the current deployed state. Do not inject UI, routing, logic, assets, or interaction patterns from older builds by mistake.
 - Preserve the current landing page, auth entry, onboarding path, and `/app/jobs` destination behavior unless the requested task directly targets one of them.
 - Default `/app/jobs` is owned by the golden desktop app behind the `DESKTOP_APP` service binding. Do not alter its UI, logic, flow, or data except for the approved selector arrow.
 - The Jobs/Grad School selector arrow is injected at the worker edge only on default desktop `/app/jobs`.
@@ -22,3 +23,5 @@ Treat the current deployed ShotCount web state as the product baseline for futur
 - `/app/jobs?track=Grad+School+Admissions` routes to the `shotcount-web` app bundle for the Grad School flow.
 - Auth/onboarding/welcome/login/signup routes currently point at `shotcount-web-desktop`.
 - When validating production behavior, check `https://www.shotcount.app/app/jobs` directly. Verifying only the worker URL is not enough because Vercel rewrites and worker routing both affect what users see.
+- After every deployment, explicitly confirm the production sign-in flow still works as intended: `https://shotcount.app` remains the landing page, users click Google OAuth sign-in from the landing page, new users are redirected to onboarding, and already-onboarded users land on `https://www.shotcount.app/app/jobs`.
+- Every post-deploy report must reiterate that future additions and edits are being made only on top of the current deployed state, and that old UI must not be injected unless David explicitly approves that exact restoration.
