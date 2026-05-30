@@ -21,6 +21,10 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/api/v1/:path*"
     },
     {
+      "source": "/api/location/:path*",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/api/location/:path*"
+    },
+    {
       "source": "/auth/:path*",
       "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/auth/:path*"
     },
