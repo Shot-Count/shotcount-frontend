@@ -76,7 +76,7 @@ pnpm dev
 ## Build and Deployment
 - Shotcount development live link is currently deployed on Vercel @ https://www.shot-count.vercel.app
 - Production landing traffic is served at https://shotcount.app and https://www.shotcount.app by this Vercel project.
-- App, auth, onboarding, and app API traffic rewrites through `vercel.json` to `https://shotcount-web.dosudavy.workers.dev`. Route ownership after that point is controlled by `shotcount-web/worker-router.js`.
+- App, auth, onboarding, and app API traffic rewrites through `vercel.json` to `https://shotcount-web.dosudavy.workers.dev`. Route ownership after that point is controlled by `shotcount-web/worker-router.js`; all `/app/*` routes are owned by `shotcount-web`.
 - Always build and test before pushing to the repo and review before merging
 
   ```bash
@@ -97,5 +97,4 @@ After every deploy, confirm the full user path on production:
 4. Already-onboarded users land on `https://www.shotcount.app/app/jobs`.
 
 Future work must build only on the current deployed state. Do not reintroduce old UI, legacy shell screens, or historical route behavior unless David explicitly approves that exact restoration.
-
 
