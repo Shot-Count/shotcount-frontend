@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "astro build && node scripts/assert-no-email-auth-ui.mjs",
     "preview": "astro preview",
+    "verify:auth-ui": "node scripts/assert-no-email-auth-ui.mjs",
     "astro": "astro"
   },
   "dependencies": {
