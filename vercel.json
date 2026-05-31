@@ -19,6 +19,31 @@
       "source": "/welcome",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/login",
+      "destination": "/?auth=signin",
+      "permanent": true
+    },
+    {
+      "source": "/signup",
+      "destination": "/?auth=signin",
+      "permanent": true
+    },
+    {
+      "source": "/forgot-password",
+      "destination": "/?auth=signin",
+      "permanent": true
+    },
+    {
+      "source": "/reset-password",
+      "destination": "/?auth=signin",
+      "permanent": true
+    },
+    {
+      "source": "/verify-email",
+      "destination": "/?auth=signin",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -75,6 +100,18 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/settings"
     },
     {
+      "source": "/alerts",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/alerts"
+    },
+    {
+      "source": "/upgrade",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/upgrade"
+    },
+    {
+      "source": "/help",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/help"
+    },
+    {
       "source": "/goals",
       "destination": "https://shotcount-web.dosudavy.workers.dev/goals"
     },
@@ -85,14 +122,6 @@
     {
       "source": "/onboarding",
       "destination": "https://shotcount-web.dosudavy.workers.dev/onboarding"
-    },
-    {
-      "source": "/login",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/login"
-    },
-    {
-      "source": "/signup",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/signup"
     },
     {
       "source": "/offline",

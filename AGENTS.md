@@ -5,12 +5,14 @@ Treat the current deployed ShotCount web state as the product baseline for futur
 - Do not restore or reintroduce legacy stack, black shell, swipe shell, or old `/openings` flows unless David explicitly asks for that exact change.
 - Make additions and edits only against the current deployed state. Do not inject UI, routing, logic, assets, or interaction patterns from older builds by mistake.
 - Preserve the current landing page, auth entry, onboarding path, and `/app/jobs` destination behavior unless the requested task directly targets one of them.
+- Sign-in is Google OAuth only from the landing page. Do not add or restore app-hosted `/login`, `/signup`, email/password, forgot-password, reset-password, or email-verification UI.
 - When David attaches a production screenshot, make changes to that exact live route/rendered implementation. Confirm the route owner in `shotcount-web/worker-router.js` before editing so work does not land in the wrong app bundle.
 - This repo owns the public landing page and the public rewrite table. It must not directly target `shotcount-web-desktop`; app/auth/API traffic should enter the `shotcount-web` worker gateway first.
 - App routes, including default `/app/jobs` and `/app/jobs?track=Grad+School+Admissions`, are owned by `shotcount-web`.
 - Public app aliases such as `/resume`, `/outreach`, `/profile`, `/coaching`, `/analytics`, `/settings`, and `/goals/:path*` should enter `shotcount-web` with those public paths preserved; `shotcount-web/worker-router.js` maps them internally.
 - Do not add public rewrites or edge-injected UI patches for owned app routes. Fix the source components in `shotcount-web`.
 - Retired routes such as `/pricing`, `/welcome`, and `/openings` must redirect away from old UI. Do not serve them from legacy desktop code.
+- Retired auth routes such as `/login`, `/signup`, `/forgot-password`, `/reset-password`, and `/verify-email` must redirect to the landing-page Google OAuth entry.
 - Preserve the Grad School flow at `/app/jobs?track=Grad+School+Admissions` unless David explicitly approves another path.
 - Before adding or changing UI, routes, or workflows, show David screenshots or a visual preview plus the intended click/path logic and wait for explicit approval. This approval gate exists to prevent legacy bad UIs from being reintroduced.
 - Keep edits narrowly scoped to the requested feature or bug. Do not use older screenshots or historical builds as source of truth unless David identifies that version for the current task.
