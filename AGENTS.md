@@ -8,6 +8,7 @@ Treat the current deployed ShotCount web state as the product baseline for futur
 - When David attaches a production screenshot, make changes to that exact live route/rendered implementation. Confirm the route owner in `shotcount-web/worker-router.js` before editing so work does not land in the wrong app bundle.
 - This repo owns the public landing page and the public rewrite table. It must not directly target `shotcount-web-desktop`; app/auth/API traffic should enter the `shotcount-web` worker gateway first.
 - App routes, including default `/app/jobs` and `/app/jobs?track=Grad+School+Admissions`, are owned by `shotcount-web`.
+- Public app aliases such as `/resume`, `/outreach`, `/profile`, `/coaching`, `/analytics`, `/settings`, and `/goals/:path*` should enter `shotcount-web` with those public paths preserved; `shotcount-web/worker-router.js` maps them internally.
 - Do not add public rewrites or edge-injected UI patches for owned app routes. Fix the source components in `shotcount-web`.
 - Retired routes such as `/pricing`, `/welcome`, and `/openings` must redirect away from old UI. Do not serve them from legacy desktop code.
 - Preserve the Grad School flow at `/app/jobs?track=Grad+School+Admissions` unless David explicitly approves another path.

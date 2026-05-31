@@ -40,31 +40,31 @@
     },
     {
       "source": "/resume",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/resume"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/resume"
     },
     {
       "source": "/jobs",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/jobs"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/jobs"
     },
     {
       "source": "/applications",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/applications"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/applications"
     },
     {
       "source": "/outreach",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/outreach"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/outreach"
     },
     {
       "source": "/coaching",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/coaching"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/coaching"
     },
     {
       "source": "/analytics",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/analytics"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/analytics"
     },
     {
       "source": "/profile",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/profile"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/profile"
     },
     {
       "source": "/info",
@@ -72,11 +72,15 @@
     },
     {
       "source": "/settings",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/settings"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/settings"
     },
     {
       "source": "/goals",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/app/goals"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/goals"
+    },
+    {
+      "source": "/goals/:path*",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/goals/:path*"
     },
     {
       "source": "/onboarding",

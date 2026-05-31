@@ -77,6 +77,7 @@ pnpm dev
 - Shotcount development live link is currently deployed on Vercel @ https://www.shot-count.vercel.app
 - Production landing traffic is served at https://shotcount.app and https://www.shotcount.app by this Vercel project.
 - App, auth, onboarding, and app API traffic rewrites through `vercel.json` to `https://shotcount-web.dosudavy.workers.dev`. Route ownership after that point is controlled by `shotcount-web/worker-router.js`; all worker-served routes are owned by `shotcount-web`.
+- Public app aliases such as `/resume`, `/outreach`, `/profile`, `/coaching`, `/analytics`, `/settings`, and `/goals/:path*` are forwarded with those paths preserved so `shotcount-web` can map them internally.
 - Retired routes such as `/pricing`, `/welcome`, and `/openings` redirect away from old UI.
 - Always build and test before pushing to the repo and review before merging
 
