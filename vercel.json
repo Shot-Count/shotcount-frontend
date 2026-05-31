@@ -9,6 +9,16 @@
       "source": "/openings/:path*",
       "destination": "/app/jobs",
       "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/welcome",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -73,20 +83,12 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/onboarding"
     },
     {
-      "source": "/welcome",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/welcome"
-    },
-    {
       "source": "/login",
       "destination": "https://shotcount-web.dosudavy.workers.dev/login"
     },
     {
       "source": "/signup",
       "destination": "https://shotcount-web.dosudavy.workers.dev/signup"
-    },
-    {
-      "source": "/pricing",
-      "destination": "https://shotcount-web.dosudavy.workers.dev/pricing"
     },
     {
       "source": "/offline",
