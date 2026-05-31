@@ -19,31 +19,6 @@
       "source": "/welcome",
       "destination": "/",
       "permanent": true
-    },
-    {
-      "source": "/login",
-      "destination": "/?auth=signin",
-      "permanent": true
-    },
-    {
-      "source": "/signup",
-      "destination": "/?auth=signin",
-      "permanent": true
-    },
-    {
-      "source": "/forgot-password",
-      "destination": "/?auth=signin",
-      "permanent": true
-    },
-    {
-      "source": "/reset-password",
-      "destination": "/?auth=signin",
-      "permanent": true
-    },
-    {
-      "source": "/verify-email",
-      "destination": "/?auth=signin",
-      "permanent": true
     }
   ],
   "rewrites": [

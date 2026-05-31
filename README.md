@@ -79,7 +79,6 @@ pnpm dev
 - App, auth, onboarding, and app API traffic rewrites through `vercel.json` to `https://shotcount-web.dosudavy.workers.dev`. Route ownership after that point is controlled by `shotcount-web/worker-router.js`; all worker-served routes are owned by `shotcount-web`.
 - Public app aliases such as `/resume`, `/outreach`, `/profile`, `/coaching`, `/analytics`, `/settings`, and `/goals/:path*` are forwarded with those paths preserved so `shotcount-web` can map them internally.
 - Retired routes such as `/pricing`, `/welcome`, and `/openings` redirect away from old UI.
-- Retired auth routes such as `/login`, `/signup`, `/forgot-password`, `/reset-password`, and `/verify-email` redirect to the landing-page Google OAuth entry; do not restore app-hosted email/password auth screens.
 - Always build and test before pushing to the repo and review before merging
 
   ```bash

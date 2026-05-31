@@ -90,7 +90,7 @@ const googleClientId = (
     const googleClientId = root.dataset.googleClientId || "";
     let isOpen = false;
     let googleInitialized = false;
-    let activeMode = "signup";
+    let activeMode = "signin";
     let oneTapAttempted = false;
     let signInWatchdogTimer = null;
 
@@ -151,19 +151,17 @@ const googleClientId = (
     }
 
     function applyMode(mode) {
-      activeMode = mode === "signin" ? "signin" : "signup";
+      activeMode = "signin";
       if (!copy) {
         return;
       }
 
       copy.textContent =
-        activeMode === "signin"
-          ? "Continue with Google to get back into your ShotCount workspace."
-          : "Continue with Google to build your opportunity system and get matched faster.";
+        "Continue with Google to get back into your ShotCount workspace.";
     }
 
     function parseMode(rawValue) {
-      return rawValue === "signin" ? "signin" : "signup";
+      return "signin";
     }
 
     function updateUrlForModal(open, mode, error) {
@@ -374,7 +372,7 @@ const googleClientId = (
       }
     }
 
-    function openModal(mode = "signup", error = "") {
+    function openModal(mode = "signin", error = "") {
       setModalOpen(true, { mode, error });
       void ensureGoogleReady({ surfaceErrors: true, promptOneTap: false });
     }
@@ -403,7 +401,7 @@ const googleClientId = (
     const params = queryState();
     const authMode = params.get("auth");
     const error = params.get("error") || "";
-    if (authMode === "signup" || authMode === "signin") {
+    if (authMode === "signin") {
       openModal(authMode, error);
     } else {
       void ensureGoogleReady({ surfaceErrors: false, promptOneTap: true });
