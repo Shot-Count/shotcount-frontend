@@ -26,7 +26,7 @@
     },
     {
       "source": "/auth/:path*",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/auth/:path*"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/auth/:path*"
     },
     {
       "source": "/resume",
@@ -70,27 +70,27 @@
     },
     {
       "source": "/onboarding",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/onboarding"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/onboarding"
     },
     {
       "source": "/welcome",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/welcome"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/welcome"
     },
     {
       "source": "/login",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/login"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/login"
     },
     {
       "source": "/signup",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/signup"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/signup"
     },
     {
       "source": "/pricing",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/pricing"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/pricing"
     },
     {
       "source": "/offline",
-      "destination": "https://shotcount-web-desktop.dosudavy.workers.dev/offline"
+      "destination": "https://shotcount-web.dosudavy.workers.dev/offline"
     },
     {
       "source": "/_next/:path*",
