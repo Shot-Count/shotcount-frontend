@@ -59,6 +59,10 @@
       "destination": "https://shotcount-web.dosudavy.workers.dev/coaching"
     },
     {
+      "source": "/writers",
+      "destination": "https://shotcount-web.dosudavy.workers.dev/writers"
+    },
+    {
       "source": "/analytics",
       "destination": "https://shotcount-web.dosudavy.workers.dev/analytics"
     },
