@@ -24,8 +24,12 @@ Treat the current deployed ShotCount web state as the product baseline for futur
 - App, auth, onboarding, and app API routes are rewritten in `vercel.json` to `https://shotcount-web.dosudavy.workers.dev`.
 - Static app assets under `/_next/:path*` are also rewritten to `shotcount-web`; do not remove that rewrite without verified replacement serving.
 - The `shotcount-web` worker is the single app gateway. All routes that reach it are owned by `shotcount-web`.
+- Do not implement or deploy app-route UI fixes from this repo. For `/app/jobs`, app aliases, app static assets, or `/sw.js`, edit `/Users/daviddosu/Developer/shotcount-web` and deploy that repo with `npm run deploy:cloudflare`.
+- A successful Vercel deploy or Vercel deploy hook run for this repo only updates the public landing/rewrite layer. It does not prove that the app bundle behind `https://www.shotcount.app/app/jobs` has changed.
 - There is no `shotcount-web-desktop` fallback in the live app architecture. Do not add one.
 - Route ownership changes belong in `shotcount-web/worker-router.js`, not in this public rewrite file.
 - When validating production behavior, check `https://www.shotcount.app/app/jobs` directly. Verifying only the worker URL is not enough because Vercel rewrites and worker routing both affect what users see.
+- For app bundle/cache verification, check both `https://shotcount-web.dosudavy.workers.dev/sw.js` and `https://www.shotcount.app/sw.js`; both should report the expected app cache version after a Worker deploy.
+- If production app UI is stale after this Vercel project deploys, the next action is to deploy `shotcount-web` to Cloudflare Worker, not to keep changing this public rewrite project.
 - After every deployment, explicitly confirm the production sign-in flow still works as intended: `https://shotcount.app` remains the landing page, users click Google OAuth sign-in from the landing page, new users are redirected to onboarding, and already-onboarded users land on `https://www.shotcount.app/app/jobs`.
 - Every post-deploy report must reiterate that future additions and edits are being made only on top of the current deployed state, and that old UI must not be injected unless David explicitly approves that exact restoration.
